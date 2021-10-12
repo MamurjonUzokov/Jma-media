@@ -1,0 +1,15 @@
+{
+  "name": "automation",
+  "version": "1.0.0",
+  "description": "Automation with Jenkins",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "newman run Jma-media/JMA_MEDIA.postman_collection.json -e 'Jma-media/Truck_Trailer.postman_environment.json'"
+  },
+  "author": "MamurjonUzokov",
+  "dependencies": {
+    "newman": "^5.3.0"
+  }
+}

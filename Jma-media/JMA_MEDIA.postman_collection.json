@@ -1,0 +1,202 @@
+{
+	"info": {
+		"_postman_id": "532a891b-e44f-4707-93e4-c220349e5a05",
+		"name": "JMA_MEDIA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Upload Single File",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json()",
+							"",
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);",
+							"});",
+							"",
+							"pm.environment.set(\"MediaKey\", response.key);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/u11/Pictures/4k-Ultra-Hd-Desktop-Wallpaper-Bangkok9sonoma.com.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{MediaDev}}/files/upload",
+					"host": [
+						"{{MediaDev}}"
+					],
+					"path": [
+						"files",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get presigned url",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json()",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{MediaDev}}/files/{{MediaKey}}/url",
+					"host": [
+						"{{MediaDev}}"
+					],
+					"path": [
+						"files",
+						"{{MediaKey}}",
+						"url"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete single",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{MediaDev}}/files/12",
+					"host": [
+						"{{MediaDev}}"
+					],
+					"path": [
+						"files",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Multiple Files",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"keys\": [\n        \"01ff523a-1d82-4f14-8d09-703fd6f0c8ed28c82790-de2a-4859-8d61-5a3864ec0ad7\",\n        \"08e1dc0c-3d35-4ca7-81d7-5830cdc5a77c41c96a50-e22a-4ebd-aa43-0505046f4dfb\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{MediaDev}}/files/delete-selected",
+					"host": [
+						"{{MediaDev}}"
+					],
+					"path": [
+						"files",
+						"delete-selected"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download File",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{MediaDev}}/files/{{MediaKey}}",
+					"host": [
+						"{{MediaDev}}"
+					],
+					"path": [
+						"files",
+						"{{MediaKey}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
